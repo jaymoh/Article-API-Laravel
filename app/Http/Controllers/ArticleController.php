@@ -17,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         //retrieve articles
-        $articles = Article::paginate(10);
+        $articles = Article::orderBy('created_at', 'desc')->paginate(5);
 
         //return a collection of articles
         return ArticleResource::collection($articles);
@@ -32,7 +32,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //update or sace new article
         $article = $request->isMethod('put') ? Article::findOrFail($request->article_id) : new Article();
 
         $article->id = $request->input('article_id');
